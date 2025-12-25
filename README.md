@@ -1,300 +1,475 @@
-# Vibe Coding: Pro-Level Bonus Assignments
+# Pro Assignment 4: Production Deployment
 
-## 📚 Overview
+## Learning Objectives
 
-Pro-level assignments are **optional bonus work** for students who want to go further and build production-ready
-features.
-
-**Total Bonus Points Available:** 50 points (5 assignments × 10 points each)
-
-These assignments extend your Hello World app (from Assignment 2) with advanced, real-world features.
-
----
-
-## 🎯 All Pro Assignments
-
-| Assignment | Topic | Points | Difficulty |
-|------------|-------|--------|------------|
-| Pro 1 | Authentication System | 10 | ⭐⭐⭐ |
-| Pro 2 | Real-Time Features (WebSockets) | 10 | ⭐⭐⭐⭐ |
-| Pro 3 | Database Integration | 10 | ⭐⭐⭐ |
-| Pro 4 | Production Deployment | 10 | ⭐⭐ |
-| Pro 5 | Comprehensive Testing Suite | 10 | ⭐⭐⭐⭐ |
+By completing this assignment, you will:
+- Understand the process of deploying applications to production
+- Learn to configure environment variables for production
+- Practice setting up production-ready configurations
+- Gain experience with deployment platforms (Vercel, Railway, Heroku, etc.)
+- Understand the difference between development and production environments
+- Learn to troubleshoot deployment issues
 
 ---
 
-## 🔐 Pro Assignment 1: Authentication System
+## Prerequisites
 
-**Points:** 10 bonus points
-**Difficulty:** ⭐⭐⭐
-
-### Goal
-
-Add user authentication to your application.
-
-### Requirements
-
-- User registration (sign up)
-- User login
-- Session management
-- Protected routes/endpoints
-- Logout functionality
-
-### Technical Requirements
-
-- Secure password storage (hashing with bcrypt or similar)
-- JWT tokens or session cookies
-- Authentication middleware
-- User database/storage
-
-### Deliverables
-
-- ✅ Working authentication system
-- ✅ Documentation in README.md
-- ✅ Security considerations documented
-- ✅ Example users for testing
+- Completed at least Assignment 2 (E2E Hello World)
+- Working server and client application
+- Understanding of your chosen stack (Node.js or Python)
+- Cursor AI installed and configured
+- GitHub account with repository access
+- Account on a deployment platform (free tier is sufficient)
 
 ---
 
-## 🔄 Pro Assignment 2: Real-Time Features (WebSockets)
+## Overview
 
-**Points:** 10 bonus points
-**Difficulty:** ⭐⭐⭐⭐
+This is a **pro-level bonus assignment** worth **10 bonus points**. It's optional but highly recommended for students who want to learn professional deployment practices.
 
-### Goal
-
-Add real-time functionality using WebSockets.
-
-### Requirements
-
-- WebSocket server setup
-- Real-time message updates
-- Client WebSocket connection
-- Live updates without page refresh
-
-### Technical Requirements
-
-- WebSocket library (Socket.io for Node.js, Flask-SocketIO for Python)
-- Server WebSocket endpoint
-- Client WebSocket connection
-- Real-time event handling
-
-### Deliverables
-
-- ✅ Working real-time features
-- ✅ Documentation in README.md
-- ✅ Example use case demonstrated
-- ✅ Screenshot/video of real-time updates
+**Goal:** Deploy your application to a production environment so it's accessible on the internet.
 
 ---
 
-## 💾 Pro Assignment 3: Database Integration
+## Instructions
 
-**Points:** 10 bonus points
-**Difficulty:** ⭐⭐⭐
+### Step 1: Choose Your Deployment Platform
 
-### Goal
+Select a deployment platform based on your stack and preferences:
 
-Add database integration to store and retrieve data.
+**Recommended Platforms:**
 
-### Requirements
+**For Node.js:**
+- **Vercel** (recommended) - Easy, free, great for Node.js
+- **Railway** - Simple, free tier, good for full-stack apps
+- **Render** - Free tier, easy setup
+- **Heroku** - Classic, but limited free tier
 
-- Database setup (SQLite, PostgreSQL, or MongoDB)
-- Database schema/models
-- CRUD operations (Create, Read, Update, Delete)
-- Data persistence
+**For Python:**
+- **Railway** (recommended) - Great for Python apps
+- **Render** - Good Python support, free tier
+- **Heroku** - Classic, but limited free tier
+- **Fly.io** - Modern, good free tier
 
-### Technical Requirements
+**For Static + API:**
+- **Vercel** - Best for static sites with API routes
+- **Netlify** - Great for static sites
+- **Railway** - Good for full-stack apps
 
-- Database connection
-- ORM or query builder
-- Migration system (optional but recommended)
-- Data validation
+### Step 2: Prepare Your Application
 
-### Deliverables
+1. **Ensure your app works locally:**
+   ```bash
+   # Node.js
+   npm start
+   # Test at http://localhost:3000
 
-- ✅ Working database integration
-- ✅ Database schema documented
-- ✅ Example queries demonstrated
-- ✅ Sample data included
+   # Python
+   python server/app.py
+   # Test at http://localhost:5000
+   ```
+
+2. **Create production-ready configuration:**
+
+   **Node.js (package.json):**
+   ```json
+   {
+     "scripts": {
+       "start": "node server/index.js",
+       "dev": "node server/index.js"
+     },
+     "engines": {
+       "node": ">=18.0.0"
+     }
+   }
+   ```
+
+   **Python (requirements.txt):**
+   ```txt
+   flask==3.0.0
+   # or express equivalent
+   ```
+
+3. **Add .gitignore (if not present):**
+   ```
+   node_modules/
+   .env
+   .env.local
+   __pycache__/
+   *.pyc
+   .venv/
+   ```
+
+### Step 3: Set Up Environment Variables
+
+1. **Identify environment variables:**
+   - Port (usually set automatically by platform)
+   - API URLs (if needed)
+   - Any configuration values
+
+2. **Use environment variables in code:**
+
+   **Node.js:**
+   ```javascript
+   const PORT = process.env.PORT || 3000;
+   const API_URL = process.env.API_URL || 'http://localhost:3000';
+   ```
+
+   **Python:**
+   ```python
+   import os
+   PORT = int(os.environ.get('PORT', 5000))
+   API_URL = os.environ.get('API_URL', 'http://localhost:5000')
+   ```
+
+### Step 4: Deploy to Platform
+
+#### Option A: Deploy to Vercel (Node.js recommended)
+
+1. **Install Vercel CLI:**
+   ```bash
+   npm install -g vercel
+   ```
+
+2. **Login:**
+   ```bash
+   vercel login
+   ```
+
+3. **Deploy:**
+   ```bash
+   vercel
+   ```
+
+4. **Follow prompts:**
+   - Link to existing project or create new
+   - Configure settings
+   - Deploy!
+
+5. **Set environment variables (if needed):**
+   - Go to Vercel dashboard → Project → Settings → Environment Variables
+   - Add any required variables
+
+#### Option B: Deploy to Railway (Node.js or Python)
+
+1. **Sign up:** Go to [railway.app](https://railway.app)
+
+2. **Create new project:**
+   - Click "New Project"
+   - Select "Deploy from GitHub repo"
+   - Choose your repository
+
+3. **Configure:**
+   - Railway auto-detects your stack
+   - Set start command if needed:
+     - Node.js: `npm start`
+     - Python: `python server/app.py`
+
+4. **Set environment variables:**
+   - Go to Variables tab
+   - Add any required variables
+
+5. **Deploy:**
+   - Railway automatically deploys on push
+   - Or click "Deploy" button
+
+#### Option C: Deploy to Render (Node.js or Python)
+
+1. **Sign up:** Go to [render.com](https://render.com)
+
+2. **Create new service:**
+   - Click "New +" → "Web Service"
+   - Connect GitHub repository
+
+3. **Configure:**
+   - **Name:** Your app name
+   - **Environment:** Node or Python
+   - **Build Command:** `npm install` (Node) or `pip install -r requirements.txt` (Python)
+   - **Start Command:** `npm start` (Node) or `python server/app.py` (Python)
+
+4. **Set environment variables:**
+   - Go to Environment tab
+   - Add variables
+
+5. **Deploy:**
+   - Click "Create Web Service"
+   - Render builds and deploys automatically
+
+### Step 5: Test Your Deployed Application
+
+1. **Get your deployment URL:**
+   - Vercel: `https://your-app.vercel.app`
+   - Railway: `https://your-app.railway.app`
+   - Render: `https://your-app.onrender.com`
+
+2. **Test the application:**
+   - Open URL in browser
+   - Test all endpoints
+   - Verify client works
+   - Check for errors
+
+3. **Test API endpoint:**
+   ```bash
+   curl https://your-app.vercel.app/api/hello
+   # Should return: {"message":"Hello Vibe!"}
+   ```
+
+### Step 6: Handle CORS (if needed)
+
+If your client and server are on different domains, configure CORS:
+
+**Node.js:**
+```javascript
+// Allow your deployment URL
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    'https://your-app.vercel.app',
+    'http://localhost:3000'
+  ];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+```
+
+**Python:**
+```python
+from flask_cors import CORS
+
+app = Flask(__name__)
+CORS(app, origins=[
+    'https://your-app.vercel.app',
+    'http://localhost:5000'
+])
+```
+
+### Step 7: Update Client to Use Production URL
+
+1. **Update client code to use production API:**
+
+   **If client is on same domain:**
+   - Use relative URLs: `/api/hello`
+
+   **If client is on different domain:**
+   - Update fetch URL: `https://your-api.railway.app/api/hello`
+
+2. **Test client with production API:**
+   - Open client URL
+   - Verify it fetches from production API
+   - Check browser console for errors
+
+### Step 8: Document Your Deployment
+
+1. **Update README.md:**
+   - Add "Deployment" section
+   - Include deployment URL
+   - Document environment variables
+   - Add deployment instructions
+   - Include troubleshooting tips
+
+2. **Screenshot:**
+   - Take screenshot of deployed application
+   - Include in README.md
 
 ---
 
-## 🚀 Pro Assignment 4: Production Deployment
+## Requirements
 
-**Points:** 10 bonus points
-**Difficulty:** ⭐⭐
+### Required
 
-### Goal
+- [ ] Application deployed to production platform
+- [ ] Live URL accessible and working
+- [ ] Environment variables configured (if needed)
+- [ ] Client can access production API
+- [ ] Application works in production environment
+- [ ] Deployment documented in README.md
 
-Deploy your application to a production environment.
+### Optional
 
-### Requirements
-
-- Deployed to production (Vercel, Railway, Heroku, Render, etc.)
-- Environment variables configured
-- Production-ready configuration
-- Live URL accessible
-
-### Technical Requirements
-
-- Deployment platform account
-- Environment variables setup
-- Production build configuration
-- Domain/URL configuration
-
-### Deliverables
-
-- ✅ Live deployed application
-- ✅ Deployment documentation
-- ✅ Production URL shared
-- ✅ Environment setup guide
+- [ ] Custom domain configured
+- [ ] HTTPS enabled (usually automatic)
+- [ ] CI/CD pipeline set up (auto-deploy on push)
+- [ ] Monitoring/logging configured
 
 ---
 
-## ✅ Pro Assignment 5: Comprehensive Testing Suite
+## Acceptance Criteria
 
-**Points:** 10 bonus points
-**Difficulty:** ⭐⭐⭐⭐
+Your submission will be evaluated based on:
 
-### Goal
-
-Add comprehensive testing to your application.
-
-### Requirements
-
-- Unit tests for server endpoints
-- Integration tests for API
-- Client-side tests (optional)
-- Test coverage report
-
-### Technical Requirements
-
-- Testing framework (Jest for Node.js, pytest for Python)
-- Test files organized
-- Test coverage > 80%
-- CI/CD integration (optional but recommended)
-
-### Deliverables
-
-- ✅ Complete test suite
-- ✅ Test coverage report
-- ✅ Testing documentation
-- ✅ Instructions to run tests
+- [ ] Application successfully deployed to production
+- [ ] Live URL is accessible
+- [ ] All endpoints work in production
+- [ ] Client can access production API
+- [ ] Environment variables properly configured
+- [ ] Deployment documented in README.md
+- [ ] Screenshot of deployed application included
+- [ ] No critical errors in production
+- [ ] Changes committed and pushed to GitHub
 
 ---
 
-## 📝 Submission Guidelines
+## Submission Requirements
 
-### For Each Pro Assignment
+1. **Live URL:** Share your production URL
+2. **Documentation:** README.md updated with deployment section
+3. **Screenshot:** Screenshot of deployed application
+4. **Commit:** All changes committed and pushed to GitHub
 
-1. **Implement the feature:**
- - Complete all requirements
- - Test thoroughly
- - Document in README.md
-
-2. **Documentation:**
- - Feature description
- - How to use
- - Technical details
- - Screenshots/demos
-
-3. **Commit and push:**
- ```bash
- git add .
- git commit -m "Pro Assignment [number]: [feature name]"
- git push
-
-Grading
-
-Each pro assignment is graded on:
-
-- Functionality (5 points): Works as described, all requirements met
-- Code Quality (3 points): Clean, readable, well-organized code
-- Documentation (2 points): Complete README with examples
-
-Total: Up to 50 bonus points (10 points × 5 assignments)
+**Commit message example:**
+```bash
+git commit -m "Pro Assignment 4: Production Deployment"
+```
 
 ---
-💡 Tips for Success
 
-- Start simple: Get basic functionality working first
-- Use Cursor AI: Generate code, then understand and modify
-- Test thoroughly: Make sure everything works before submitting
-- Document well: Documentation is part of the grade
-- Ask for help: Pro assignments are challenging, help is available
-- Build incrementally: Do Pro 1, 3, 4 before attempting 2 or 5
+## Grading Rubric
+
+See [Grading Rubrics](../materials/grading-rubrics.md) for detailed criteria.
+
+**Total Points:** 10 bonus points
+
+- **Deployment success:** 4 points
+  - Application deployed and accessible: 2 points
+  - All endpoints working: 2 points
+- **Configuration:** 3 points
+  - Environment variables configured: 1 point
+  - Production-ready configuration: 1 point
+  - CORS handled (if needed): 1 point
+- **Documentation:** 2 points
+  - Deployment documented: 1 point
+  - Screenshot included: 1 point
+- **Code quality:** 1 point
+  - Production-ready code
+  - No hardcoded localhost URLs
 
 ---
-🎓 Recommended Order
 
-1. Start with Pro 4 (Deployment) - Easiest, good confidence builder
-2. Then Pro 3 (Database) - Foundation for other features
-3. Then Pro 1 (Authentication) - Builds on database
-4. Then Pro 5 (Testing) - Learn to test what you've built
-5. Finally Pro 2 (WebSockets) - Most advanced
+## Tips for Success
+
+- **Start with free tier:** All platforms offer free tiers sufficient for this assignment
+- **Use Cursor AI:** Ask Cursor to help with deployment configuration
+- **Test locally first:** Make sure everything works locally before deploying
+- **Check platform logs:** If deployment fails, check platform logs for errors
+- **Read platform docs:** Each platform has excellent documentation
+- **Start simple:** Deploy basic version first, then add features
+- **Handle errors gracefully:** Production apps should handle errors well
 
 ---
-🆘 Getting Help
+
+## Common Deployment Issues
+
+### Issue: Application won't start
+
+**Solutions:**
+- Check start command in platform settings
+- Verify PORT environment variable is used
+- Check platform logs for errors
+- Ensure all dependencies are in package.json/requirements.txt
+
+### Issue: CORS errors
+
+**Solutions:**
+- Configure CORS to allow your client domain
+- Check allowed origins in CORS configuration
+- Verify client is using correct API URL
+
+### Issue: Environment variables not working
+
+**Solutions:**
+- Verify variables are set in platform dashboard
+- Check variable names match code
+- Restart deployment after adding variables
+
+### Issue: Build fails
+
+**Solutions:**
+- Check build logs for errors
+- Verify all dependencies are listed
+- Check Node.js/Python version compatibility
+- Ensure build command is correct
+
+---
+
+## Example Deployment Structure
+
+```
+your-project/
+├── server/
+│   └── index.js (or app.py)
+├── client/
+│   └── index.html
+├── package.json (or requirements.txt)
+├── .gitignore
+├── vercel.json (optional, for Vercel)
+├── Procfile (optional, for Heroku)
+└── README.md
+```
+
+**Example vercel.json (Vercel):**
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/index.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "server/index.js"
+    }
+  ]
+}
+```
+
+**Example Procfile (Heroku):**
+```
+web: node server/index.js
+```
+
+---
+
+## Getting Help
 
 - Ask questions in the help channel
-- Review documentation for technologies used
-- Check ../../docs/education/vibe-coding-faq.md
+- Review platform documentation:
+  - [Vercel Documentation](https://vercel.com/docs)
+  - [Railway Documentation](https://docs.railway.app/)
+  - [Render Documentation](https://render.com/docs)
+- Check [FAQ](../materials/faq.md)
+- Review [Student Guide](../materials/student-guide.md)
 - Contact your teacher if needed
-- Review example projects (if provided)
 
 ---
-📚 Recommended Resources
 
-Authentication
+## Resources
 
-- JWT.io - Learn about JSON Web Tokens
-- bcrypt documentation
-- OWASP Authentication Cheat Sheet
+**Deployment Platforms:**
+- [Vercel](https://vercel.com/) - Best for Node.js and static sites
+- [Railway](https://railway.app/) - Great for full-stack apps
+- [Render](https://render.com/) - Good for Node.js and Python
+- [Heroku](https://www.heroku.com/) - Classic platform
 
-WebSockets
-
-- Socket.io documentation
-- Flask-SocketIO documentation
-- MDN WebSocket API
-
-Databases
-
-- SQLite Tutorial
-- PostgreSQL Documentation
-- Mongoose (MongoDB for Node.js)
-
-Deployment
-
-- Vercel Documentation
-- Railway Documentation
-- Heroku Dev Center
-
-Testing
-
-- Jest Documentation
-- pytest Documentation
-- Testing Best Practices
+**Deployment Guides:**
+- [Deploying Node.js Apps](https://vercel.com/docs/deployments/overview)
+- [Deploying Python Apps](https://docs.railway.app/guides/python)
+- [Environment Variables Guide](https://vercel.com/docs/environment-variables)
 
 ---
-🏆 Bonus Challenge
 
-Complete all 5 Pro assignments to earn:
-- ✨ 50 bonus points
-- 🎖️ "Pro Developer" badge
-- 📜 Special recognition in course completion
+## Document History
 
----
-Ready to level up? Start with Pro Assignment 4 (Deployment)!
-
-Good luck! 🚀
-
-5. **Vieritä alas** ja klikkaa **"Commit changes..."**
-
-6. **Commit message:** `Add Pro assignments instructions`
-
-7. **Klikkaa "Commit changes"**
-
-8. **Ota kuvakaappaus** kun commit on valmis
+| Version | Date | Author | Changes |
+|---------|------|--------|---------|
+| 1.0 | 2025-12-25 | RepodIn Education Team | Initial version |
 
 ---
+
+**Next Review Date:** 2026-03-20
+
