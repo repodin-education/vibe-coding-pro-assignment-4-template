@@ -3,6 +3,7 @@
 ## Learning Objectives
 
 By completing this assignment, you will:
+
 - Understand the process of deploying applications to production
 - Learn to configure environment variables for production
 - Practice setting up production-ready configurations
@@ -16,7 +17,7 @@ By completing this assignment, you will:
 
 - Completed at least Assignment 2 (E2E Hello World)
 - Working server and client application
-- Understanding of your chosen stack (Node.js or Python)
+- Understanding of Node.js + Express
 - Cursor AI installed and configured
 - GitHub account with repository access
 - Account on a deployment platform (free tier is sufficient)
@@ -40,18 +41,21 @@ Select a deployment platform based on your stack and preferences:
 **Recommended Platforms:**
 
 **For Node.js:**
+
 - **Vercel** (recommended) - Easy, free, great for Node.js
 - **Railway** - Simple, free tier, good for full-stack apps
 - **Render** - Free tier, easy setup
 - **Heroku** - Classic, but limited free tier
 
-**For Python:**
-- **Railway** (recommended) - Great for Python apps
-- **Render** - Good Python support, free tier
-- **Heroku** - Classic, but limited free tier
+**For Node.js:**
+
+- **Railway** (recommended) - Great for Node.js apps
+- **Render** - Good Node.js support, free tier
+- **Fly.io** - Modern platform with free tier
 - **Fly.io** - Modern, good free tier
 
 **For Static + API:**
+
 - **Vercel** - Best for static sites with API routes
 - **Netlify** - Great for static sites
 - **Railway** - Good for full-stack apps
@@ -59,19 +63,21 @@ Select a deployment platform based on your stack and preferences:
 ### Step 2: Prepare Your Application
 
 1. **Ensure your app works locally:**
+
    ```bash
    # Node.js
    npm start
    # Test at http://localhost:3000
 
-   # Python
-   python server/app.py
-   # Test at http://localhost:5000
+   # Node.js
+   node server/index.js
+   # Test at http://localhost:3000
    ```
 
 2. **Create production-ready configuration:**
 
    **Node.js (package.json):**
+
    ```json
    {
      "scripts": {
@@ -84,10 +90,14 @@ Select a deployment platform based on your stack and preferences:
    }
    ```
 
-   **Python (requirements.txt):**
-   ```txt
-   flask==3.0.0
-   # or express equivalent
+   **Node.js (package.json):**
+
+   ```json
+   {
+     "dependencies": {
+       "express": "^4.18.0"
+     }
+   }
    ```
 
 3. **Add .gitignore (if not present):**
@@ -103,6 +113,7 @@ Select a deployment platform based on your stack and preferences:
 ### Step 3: Set Up Environment Variables
 
 1. **Identify environment variables:**
+
    - Port (usually set automatically by platform)
    - API URLs (if needed)
    - Any configuration values
@@ -110,14 +121,16 @@ Select a deployment platform based on your stack and preferences:
 2. **Use environment variables in code:**
 
    **Node.js:**
+
    ```javascript
-   const PORT = process.env.PORT || 3000;
-   const API_URL = process.env.API_URL || 'http://localhost:3000';
+   const PORT = process.env.PORT || 3000
+   const API_URL = process.env.API_URL || 'http://localhost:3000'
    ```
 
-   **Python:**
-   ```python
-   import os
+   **Node.js:**
+
+   ```javascript
+   const port = process.env.PORT || 3000;
    PORT = int(os.environ.get('PORT', 5000))
    API_URL = os.environ.get('API_URL', 'http://localhost:5000')
    ```
@@ -127,21 +140,25 @@ Select a deployment platform based on your stack and preferences:
 #### Option A: Deploy to Vercel (Node.js recommended)
 
 1. **Install Vercel CLI:**
+
    ```bash
    npm install -g vercel
    ```
 
 2. **Login:**
+
    ```bash
    vercel login
    ```
 
 3. **Deploy:**
+
    ```bash
    vercel
    ```
 
 4. **Follow prompts:**
+
    - Link to existing project or create new
    - Configure settings
    - Deploy!
@@ -150,22 +167,24 @@ Select a deployment platform based on your stack and preferences:
    - Go to Vercel dashboard → Project → Settings → Environment Variables
    - Add any required variables
 
-#### Option B: Deploy to Railway (Node.js or Python)
+#### Option B: Deploy to Railway (Node.js)
 
 1. **Sign up:** Go to [railway.app](https://railway.app)
 
 2. **Create new project:**
+
    - Click "New Project"
    - Select "Deploy from GitHub repo"
    - Choose your repository
 
 3. **Configure:**
+
    - Railway auto-detects your stack
    - Set start command if needed:
-     - Node.js: `npm start`
-     - Python: `python server/app.py`
+     - `npm start`
 
 4. **Set environment variables:**
+
    - Go to Variables tab
    - Add any required variables
 
@@ -173,21 +192,24 @@ Select a deployment platform based on your stack and preferences:
    - Railway automatically deploys on push
    - Or click "Deploy" button
 
-#### Option C: Deploy to Render (Node.js or Python)
+#### Option C: Deploy to Render (Node.js)
 
 1. **Sign up:** Go to [render.com](https://render.com)
 
 2. **Create new service:**
+
    - Click "New +" → "Web Service"
    - Connect GitHub repository
 
 3. **Configure:**
+
    - **Name:** Your app name
-   - **Environment:** Node or Python
-   - **Build Command:** `npm install` (Node) or `pip install -r requirements.txt` (Python)
-   - **Start Command:** `npm start` (Node) or `python server/app.py` (Python)
+   - **Environment:** Node
+   - **Build Command:** `npm install`
+   - **Start Command:** `npm start`
 
 4. **Set environment variables:**
+
    - Go to Environment tab
    - Add variables
 
@@ -198,11 +220,13 @@ Select a deployment platform based on your stack and preferences:
 ### Step 5: Test Your Deployed Application
 
 1. **Get your deployment URL:**
+
    - Vercel: `https://your-app.vercel.app`
    - Railway: `https://your-app.railway.app`
    - Render: `https://your-app.onrender.com`
 
 2. **Test the application:**
+
    - Open URL in browser
    - Test all endpoints
    - Verify client works
@@ -219,29 +243,21 @@ Select a deployment platform based on your stack and preferences:
 If your client and server are on different domains, configure CORS:
 
 **Node.js:**
+
 ```javascript
 // Allow your deployment URL
 app.use((req, res, next) => {
-  const allowedOrigins = [
-    'https://your-app.vercel.app',
-    'http://localhost:3000'
-  ];
-  const origin = req.headers.origin;
+  const allowedOrigins = ['https://your-app.vercel.app', 'http://localhost:3000']
+  const origin = req.headers.origin
   if (allowedOrigins.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
+    res.header('Access-Control-Allow-Origin', origin)
   }
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
+  res.header('Access-Control-Allow-Headers', 'Content-Type')
+  next()
+})
 ```
 
-**Python:**
-```python
-from flask_cors import CORS
-
-app = Flask(__name__)
-CORS(app, origins=[
-    'https://your-app.vercel.app',
+**Note:** Make sure your Express server has CORS configured for your production domain.
     'http://localhost:5000'
 ])
 ```
@@ -251,9 +267,11 @@ CORS(app, origins=[
 1. **Update client code to use production API:**
 
    **If client is on same domain:**
+
    - Use relative URLs: `/api/hello`
 
    **If client is on different domain:**
+
    - Update fetch URL: `https://your-api.railway.app/api/hello`
 
 2. **Test client with production API:**
@@ -264,6 +282,7 @@ CORS(app, origins=[
 ### Step 8: Document Your Deployment
 
 1. **Update README.md:**
+
    - Add "Deployment" section
    - Include deployment URL
    - Document environment variables
@@ -320,6 +339,7 @@ Your submission will be evaluated based on:
 4. **Commit:** All changes committed and pushed to GitHub
 
 **Commit message example:**
+
 ```bash
 git commit -m "Pro Assignment 4: Production Deployment"
 ```
@@ -328,7 +348,7 @@ git commit -m "Pro Assignment 4: Production Deployment"
 
 ## Grading Rubric
 
-See [Grading Rubrics](../materials/grading-rubrics.md) for detailed criteria.
+See [Grading Rubrics](https://repodin-education.github.io/vibe-coding-materials/grading-rubrics.html) for detailed criteria.
 
 **Total Points:** 10 bonus points
 
@@ -365,6 +385,7 @@ See [Grading Rubrics](../materials/grading-rubrics.md) for detailed criteria.
 ### Issue: Application won't start
 
 **Solutions:**
+
 - Check start command in platform settings
 - Verify PORT environment variable is used
 - Check platform logs for errors
@@ -373,6 +394,7 @@ See [Grading Rubrics](../materials/grading-rubrics.md) for detailed criteria.
 ### Issue: CORS errors
 
 **Solutions:**
+
 - Configure CORS to allow your client domain
 - Check allowed origins in CORS configuration
 - Verify client is using correct API URL
@@ -380,6 +402,7 @@ See [Grading Rubrics](../materials/grading-rubrics.md) for detailed criteria.
 ### Issue: Environment variables not working
 
 **Solutions:**
+
 - Verify variables are set in platform dashboard
 - Check variable names match code
 - Restart deployment after adding variables
@@ -387,9 +410,10 @@ See [Grading Rubrics](../materials/grading-rubrics.md) for detailed criteria.
 ### Issue: Build fails
 
 **Solutions:**
+
 - Check build logs for errors
-- Verify all dependencies are listed
-- Check Node.js/Python version compatibility
+- Verify all dependencies are listed in package.json
+- Check Node.js version compatibility
 - Ensure build command is correct
 
 ---
@@ -410,6 +434,7 @@ your-project/
 ```
 
 **Example vercel.json (Vercel):**
+
 ```json
 {
   "version": 2,
@@ -429,6 +454,7 @@ your-project/
 ```
 
 **Example Procfile (Heroku):**
+
 ```
 web: node server/index.js
 ```
@@ -442,8 +468,8 @@ web: node server/index.js
   - [Vercel Documentation](https://vercel.com/docs)
   - [Railway Documentation](https://docs.railway.app/)
   - [Render Documentation](https://render.com/docs)
-- Check [FAQ](../materials/faq.md)
-- Review [Student Guide](../materials/student-guide.md)
+- Check [FAQ](https://repodin-education.github.io/vibe-coding-materials/faq.html)
+- Review [Student Guide](https://repodin-education.github.io/vibe-coding-materials/student-guide.html)
 - Contact your teacher if needed
 
 ---
@@ -451,23 +477,25 @@ web: node server/index.js
 ## Resources
 
 **Deployment Platforms:**
+
 - [Vercel](https://vercel.com/) - Best for Node.js and static sites
 - [Railway](https://railway.app/) - Great for full-stack apps
-- [Render](https://render.com/) - Good for Node.js and Python
+- [Render](https://render.com/) - Good for Node.js applications
 - [Heroku](https://www.heroku.com/) - Classic platform
 
 **Deployment Guides:**
+
 - [Deploying Node.js Apps](https://vercel.com/docs/deployments/overview)
-- [Deploying Python Apps](https://docs.railway.app/guides/python)
+- [Railway Deployment Guide](https://docs.railway.app/guides/nodejs)
 - [Environment Variables Guide](https://vercel.com/docs/environment-variables)
 
 ---
 
 ## Document History
 
-| Version | Date | Author | Changes |
-|---------|------|--------|---------|
-| 1.0 | 2025-12-25 | RepodIn Education Team | Initial version |
+| Version | Date       | Author                 | Changes         |
+| ------- | ---------- | ---------------------- | --------------- |
+| 1.0     | 2025-12-25 | RepodIn Education Team | Initial version |
 
 ---
 
